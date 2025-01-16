@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <title>حساب المخلفات والانحدار الخطي</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      direction: rtl; /* من اليمين لليسار */
+    }
+    h1, h2, h3 {
+      text-align: center;
+    }
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      border: 1px solid #ccc;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 30px;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input[type="number"],
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 6px;
+      margin: 5px 0;
+    }
+    button {
+      margin-top: 10px;
+      padding: 8px 20px;
+      cursor: pointer;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 10px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: center;
+    }
+    .result-box, .result {
+      margin: 10px 0;
+      padding: 10px;
+      background-color: #fafafa;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    #chartContainer1, #chartContainer2 {
+      width: 90%;
+      margin: 20px auto;
+    }
+    .flex {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+    .flex > div {
+      flex: 1 1 45%;
+      margin: 10px;
+    }
+    .hidden { display: none; }
+    .center { text-align: center; }
+    .btn-row {
+      display: flex;
+      gap: 5px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>حساب المخلفات + الانحدار الخطي</h1>
+
+<!-- (1) قسم تقدير المخلفات -->
+<div class="container" id="wasteEstimationContainer">
+  <h2>1) حساب كمية المخلفات</h2>
+  <label>اختر نوع المشروع:</label>
+  <select id="projectType">
+    <option value="concrete">خرسانة</option>
+    <option value="asphalt">أسفلت</option>
+  </select>
+
+  <!-- مدخلات خرسانة (M = A*Q*R) -->
+  <div id="concreteFields">
+    <label>إجمالي مساحة البناء (م<sup>2</sup>):</label>
+    <input type="number" id="A" placeholder="مثال: 1000" min="0" />
+
+    <!-- أزلنا التقييد (0.3 - 0.5) وجعلنا القيمة مفتوحة -->
+    <label>كمية الخرسانة المتوقعة لكل م<sup>2</sup> (طن/م<sup>3</sup>):</label>
+    <input type="number" step="0.01" id="Q" placeholder="مثال: 0.4" />
+
+    <label>نسبة المخلفات (بين 5% - 10% = 0.05 - 0.1):</label>
+    <input type="number" step="0.01" id="R_concrete" placeholder="مثال: 0.07" min="0" />
+  </div>
+
+  <!-- مدخلات أسفلت (M = L * W * T * R * 25) -->
+  <div id="asphaltFields" class="hidden">
+    <label>طول الطريق (م):</label>
+    <input type="number" id="L" placeholder="مثال: 1000" min="0" />
+
+    <label>عرض الطريق (م):</label>
+    <input type="number" id="W" placeholder="مثال: 10" min="0" />
+
+    <label>سمك طبقة الأسفلت (م):</label>
+    <input type="number" step="0.01" id="T" placeholder="مثال: 0.1" min="0" />
+
+    <label>نسبة المخلفات (بين 5% - 12% = 0.05 - 0.12):</label>
+    <input type="number" step="0.01" id="R_asphalt" placeholder="مثال: 0.08" min="0" />
+  </div>
+
+  <button id="calcWasteBtn">حساب المخلفات</button>
+  <div class="result-box hidden" id="wasteResultBox">
+    <p>كمية المخلفات المتوقعة: <strong id="wasteResult"></strong> طن</p>
+  </div>
+  <button onclick="window.print()">طباعة</button>
+</div>
+
+<!-- (2) قسم إدخال بيانات تاريخية لتطبيق الانحدار الخطي -->
+<div class="container">
+  <h2>2) البيانات التاريخية (الانحدار الخطي)</h2>
+  <p>
+    أدخل بيانات تاريخية على شكل أزواج (x, y). <br>
+    مثلًا (x = الإنفاق الحكومي لسنة معينة) و (y = حجم الطلب في تلك السنة).
+  </p>
+  
+  <table id="historicalTable">
+    <thead>
+      <tr>
+        <th>x</th>
+        <th>y</th>
+        <th>حذف</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <div class="btn-row">
+    <button id="addRowBtn">+ إضافة صف</button>
+    <button id="applyRegressionBtn">تطبيق الانحدار الخطي</button>
+  </div>
+
+  <div class="result-box hidden" id="regressionResultBox">
+    <p>معادلة الانحدار الخطي (y = a + b*x):</p>
+    <p> <strong id="equationLabel"></strong> </p>
+    <p>معامل التحديد R²: <strong id="r2Label"></strong></p>
+  </div>
+
+  <div id="chartContainer1" class="hidden">
+    <canvas id="regressionChart"></canvas>
+  </div>
+
+  <button onclick="window.print()">طباعة</button>
+</div>
+
+<!-- (3) قسم التنبؤ بالاعتماد على الانحدار الخطي -->
+<div class="container">
+  <h2>3) تنبؤ بالطلب (بناءً على معادلة الانحدار)</h2>
+  <p>
+    بعد حساب معادلة الانحدار الخطي، يمكنك إدخال قيم x جديدة؛
+    لنحسب لك y المتوقعة ونضيفها في الجدول والرسم.
+  </p>
+  <div class="flex">
+    <div>
+      <label>قيمة x الجديدة:</label>
+      <input type="number" step="0.01" id="predictX" />
+      <button id="predictBtn">تنفيذ التنبؤ</button>
+    </div>
+    <div>
+      <table id="predictionTable">
+        <thead>
+          <tr>
+            <th>x</th>
+            <th>y المتوقعة</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="chartContainer2" class="hidden">
+    <canvas id="predictionChart"></canvas>
+  </div>
+
+  <button onclick="window.print()">طباعة</button>
+</div>
+
+<!-- مكتبة Chart.js لرسم البيانيات -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+/**********************************************************************
+ * (1) حساب المخلفات (خرسانة أو أسفلت)
+ **********************************************************************/
+const projectTypeSelect = document.getElementById("projectType");
+const concreteFields = document.getElementById("concreteFields");
+const asphaltFields = document.getElementById("asphaltFields");
+const calcWasteBtn = document.getElementById("calcWasteBtn");
+const wasteResultBox = document.getElementById("wasteResultBox");
+const wasteResult = document.getElementById("wasteResult");
+
+// عند تغيير نوع المشروع، نظهر/نخفي الحقول المناسبة
+projectTypeSelect.addEventListener("change", () => {
+  if (projectTypeSelect.value === "concrete") {
+    concreteFields.classList.remove("hidden");
+    asphaltFields.classList.add("hidden");
+  } else {
+    concreteFields.classList.add("hidden");
+    asphaltFields.classList.remove("hidden");
+  }
+});
+
+// زر حساب المخلفات
+calcWasteBtn.addEventListener("click", () => {
+  let M = 0;
+
+  if (projectTypeSelect.value === "concrete") {
+    // M = A * Q * R
+    const A = parseFloat(document.getElementById("A").value) || 0;
+    const Q = parseFloat(document.getElementById("Q").value) || 0;
+    const R_concrete = parseFloat(document.getElementById("R_concrete").value) || 0;
+    M = A * Q * R_concrete;
+
+  } else {
+    // أسفلت: M = L * W * T * R * 25
+    const L = parseFloat(document.getElementById("L").value) || 0;
+    const W = parseFloat(document.getElementById("W").value) || 0;
+    const T = parseFloat(document.getElementById("T").value) || 0;
+    const R_asphalt = parseFloat(document.getElementById("R_asphalt").value) || 0;
+    M = L * W * T * R_asphalt * 25;
+  }
+
+  wasteResult.textContent = M.toFixed(2);
+  wasteResultBox.classList.remove("hidden");
+});
+
+/**********************************************************************
+ * (2) الانحدار الخطي (إدخال بيانات تاريخية x,y)
+ **********************************************************************/
+// جدول البيانات
+const historicalTableBody = document.getElementById("historicalTable").querySelector("tbody");
+const addRowBtn = document.getElementById("addRowBtn");
+const applyRegressionBtn = document.getElementById("applyRegressionBtn");
+
+const regressionResultBox = document.getElementById("regressionResultBox");
+const equationLabel = document.getElementById("equationLabel");
+const r2Label = document.getElementById("r2Label");
+const chartContainer1 = document.getElementById("chartContainer1");
+let regressionChart = null;
+
+// زر إضافة صف
+addRowBtn.addEventListener("click", () => {
+  const row = document.createElement("tr");
+
+  // خلية x
+  const cellX = document.createElement("td");
+  const inputX = document.createElement("input");
+  inputX.type = "number";
+  inputX.step = "0.01";
+  cellX.appendChild(inputX);
+
+  // خلية y
+  const cellY = document.createElement("td");
+  const inputY = document.createElement("input");
+  inputY.type = "number";
+  inputY.step = "0.01";
+  cellY.appendChild(inputY);
+
+  // خلية حذف
+  const cellDel = document.createElement("td");
+  const delBtn = document.createElement("button");
+  delBtn.textContent = "-";
+  delBtn.addEventListener("click", () => {
+    row.remove();
+  });
+  cellDel.appendChild(delBtn);
+
+  row.appendChild(cellX);
+  row.appendChild(cellY);
+  row.appendChild(cellDel);
+
+  historicalTableBody.appendChild(row);
+});
+
+// دالة لحساب الانحدار الخطي البسيط (y = a + b*x)
+function linearRegression(xArr, yArr) {
+  // 1) حساب المتوسط
+  const n = xArr.length;
+  const meanX = xArr.reduce((acc, val) => acc + val, 0) / n;
+  const meanY = yArr.reduce((acc, val) => acc + val, 0) / n;
+
+  // 2) حساب b
+  let num = 0;
+  let den = 0;
+  for (let i = 0; i < n; i++) {
+    const x = xArr[i];
+    const y = yArr[i];
+    num += (x - meanX) * (y - meanY);
+    den += (x - meanX) ** 2;
+  }
+  const b = num / den;
+
+  // 3) حساب a
+  const a = meanY - b * meanX;
+
+  // حساب R^2
+  let ssTot = 0;
+  let ssRes = 0;
+  for (let i = 0; i < n; i++) {
+    const yPred = a + b * xArr[i];
+    ssRes += (yArr[i] - yPred) ** 2;
+    ssTot += (yArr[i] - meanY) ** 2;
+  }
+  const r2 = 1 - (ssRes / ssTot);
+
+  return { a, b, r2 };
+}
+
+// زر تطبيق الانحدار
+applyRegressionBtn.addEventListener("click", () => {
+  // قراءة البيانات من الجدول
+  const rows = historicalTableBody.querySelectorAll("tr");
+  const xArr = [];
+  const yArr = [];
+
+  rows.forEach(row => {
+    const inputs = row.querySelectorAll("input");
+    const xVal = parseFloat(inputs[0].value);
+    const yVal = parseFloat(inputs[1].value);
+    if (!isNaN(xVal) && !isNaN(yVal)) {
+      xArr.push(xVal);
+      yArr.push(yVal);
+    }
+  });
+
+  if (xArr.length < 2) {
+    alert("أدخل على الأقل صفّين من البيانات (2) لتطبيق الانحدار.");
+    return;
+  }
+
+  // حساب الانحدار
+  const { a, b, r2 } = linearRegression(xArr, yArr);
+
+  equationLabel.textContent = `y = ${a.toFixed(2)} + ${b.toFixed(2)} * x`;
+  r2Label.textContent = r2.toFixed(4);
+
+  regressionResultBox.classList.remove("hidden");
+  chartContainer1.classList.remove("hidden");
+
+  // رسم النقاط وخط الانحدار
+  if (regressionChart) {
+    regressionChart.destroy();
+  }
+  const ctx = document.getElementById("regressionChart").getContext("2d");
+
+  // تحضير البيانات للرسم
+  const minX = Math.min(...xArr);
+  const maxX = Math.max(...xArr);
+  const steps = 50; 
+  const stepVal = (maxX - minX) / steps;
+
+  const lineX = [];
+  const lineY = [];
+
+  for (let i = 0; i <= steps; i++) {
+    const curX = minX + i * stepVal;
+    const curY = a + b * curX;
+    lineX.push(curX);
+    lineY.push(curY);
+  }
+
+  regressionChart = new Chart(ctx, {
+    type: "scatter",
+    data: {
+      datasets: [
+        {
+          label: "البيانات الأصلية",
+          data: xArr.map((v, i) => ({ x: v, y: yArr[i] })),
+          backgroundColor: "red",
+        },
+        {
+          label: "خط الانحدار",
+          type: "line",
+          data: lineX.map((v, i) => ({ x: v, y: lineY[i] })),
+          borderColor: "blue",
+          fill: false
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        x: {
+          type: "linear",
+          position: "bottom"
+        },
+        y: {
+          type: "linear"
+        }
+      }
+    }
+  });
+});
+
+/**********************************************************************
+ * (3) التنبؤ بقيم جديدة من خلال معادلة الانحدار
+ **********************************************************************/
+const predictX = document.getElementById("predictX");
+const predictBtn = document.getElementById("predictBtn");
+const predictionTableBody = document.getElementById("predictionTable").querySelector("tbody");
+const chartContainer2 = document.getElementById("chartContainer2");
+let predictionChart = null;
+
+let lastA = 0;
+let lastB = 0;
+
+predictBtn.addEventListener("click", () => {
+  // يجب أن نكون قد حسبنا الانحدار (a, b) أولًا
+  if (!document.getElementById("regressionResultBox").classList.contains("hidden")) {
+    // نقرأ قيم a,b من معادلة الانحدار المعروضة
+    const eqText = equationLabel.textContent; 
+    // يتوقع الشكل: "y = 3.00 + 2.00 * x"
+    const match = eqText.match(/y\s*=\s*([\-\d.]+)\s*\+\s*([\-\d.]+)\s*\*\s*x/);
+    if (match) {
+      lastA = parseFloat(match[1]);
+      lastB = parseFloat(match[2]);
+    } else {
+      alert("لم يتم العثور على معادلة الانحدار بشكل صحيح!");
+      return;
+    }
+
+    const xVal = parseFloat(predictX.value);
+    if (isNaN(xVal)) {
+      alert("يرجى إدخال قيمة x صحيحة للتنبؤ.");
+      return;
+    }
+
+    const yPred = lastA + lastB * xVal;
+    // نضيف التنبؤ في جدول
+    const row = document.createElement("tr");
+    const cellX = document.createElement("td");
+    const cellY = document.createElement("td");
+    cellX.textContent = xVal.toFixed(2);
+    cellY.textContent = yPred.toFixed(2);
+    row.appendChild(cellX);
+    row.appendChild(cellY);
+    predictionTableBody.appendChild(row);
+
+    // رسم
+    drawPredictionChart();
+  } else {
+    alert("يجب تطبيق الانحدار الخطي أولًا (الخطوة 2)!");
+  }
+});
+
+function drawPredictionChart() {
+  if (predictionChart) {
+    predictionChart.destroy();
+  }
+  const ctx = document.getElementById("predictionChart").getContext("2d");
+  chartContainer2.classList.remove("hidden");
+
+  // قراءة كل الصفوف في جدول التنبؤ
+  const rows = predictionTableBody.querySelectorAll("tr");
+  const preds = [];
+  rows.forEach(row => {
+    const cells = row.querySelectorAll("td");
+    const xVal = parseFloat(cells[0].textContent);
+    const yVal = parseFloat(cells[1].textContent);
+    preds.push({ x: xVal, y: yVal });
+  });
+
+  // فرزها وفق x
+  preds.sort((a,b) => a.x - b.x);
+
+  predictionChart = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: preds.map(p => p.x),
+      datasets: [
+        {
+          label: "القيم المتنبأ بها (y)",
+          data: preds.map(p => p.y),
+          borderColor: "green",
+          borderWidth: 2,
+          fill: false
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        x: {
+          type: "linear",
+          position: "bottom",
+          title: { display: true, text: "x" }
+        },
+        y: {
+          title: { display: true, text: "y" }
+        }
+      }
+    }
+  });
+}
+</script>
+</body>
+</html>
