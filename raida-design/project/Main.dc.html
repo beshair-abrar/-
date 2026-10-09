@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>رائدة — نظام التصميم</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#DCE5E1}
+*{box-sizing:border-box}
+a{color:#0B4F4A}a:hover{color:#127A6E}
+.R{font-family:'IBM Plex Sans Arabic',Tajawal,sans-serif;color:#16302C;line-height:1.7;font-size:15px}
+.R h1,.R h2,.R h3,.R h4,.R p{margin:0}
+.R h1,.R h2,.R h3,.R h4{line-height:1.35;font-weight:700}
+.cap{font-size:13px;font-weight:600;color:#3F5853}
+.card{background:#fff;border:1px solid #D5E0DB;border-radius:8px}
+.btn{min-height:44px;padding:0 20px;border-radius:8px;font-family:inherit;font-size:15px;font-weight:600;display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid transparent;text-decoration:none;cursor:pointer;white-space:nowrap}
+.bg{background:#C9962C;color:#16302C}
+.bt{background:#0B4F4A;color:#fff}
+.bo{background:#fff;color:#0B4F4A;border-color:#0B4F4A}
+.bq{background:transparent;color:#0B4F4A;text-decoration:underline}
+.bd{background:#E6ECE9;color:#6A7C78;cursor:not-allowed}
+.tag{display:inline-flex;align-items:center;gap:6px;min-height:26px;padding:0 10px;border-radius:13px;font-size:13px;font-weight:600;white-space:nowrap}
+.ok{background:#E1F0EC;color:#0B4F4A}
+.wait{background:#F8EED8;color:#6B4C0E}
+.al{background:#F6E4DF;color:#8E3826}
+.nt{background:#EDF1EF;color:#3F5853}
+.gd{background:#C9962C;color:#16302C}
+.mu{color:#4A615C}
+.fld{display:flex;flex-direction:column;gap:6px}
+.fld label{font-size:14px;font-weight:600}
+.in{height:48px;border:1px solid #AFC2BA;border-radius:8px;background:#fff;padding:0 14px;font-family:inherit;font-size:15px;color:#16302C;width:100%}
+.bar{height:8px;background:#E1E9E5;border-radius:4px;overflow:hidden}
+.bar>i{display:block;height:100%;background:#127A6E}
+.sec{background:#fff;border:1px solid #D5E0DB;border-radius:12px;padding:40px;display:flex;flex-direction:column;gap:28px}
+.sh{display:flex;align-items:baseline;gap:16px;border-bottom:1px solid #E1E9E5;padding-bottom:16px}
+.sh span{font-size:13px;font-weight:600;color:#127A6E}
+.sw{display:flex;flex-direction:column;gap:10px}
+.chip{height:96px;border-radius:8px;display:flex;align-items:flex-end;padding:12px;font-weight:600;font-size:14px}
+</style>
+</helmet>
+<div class="R" style="width:1800px;height:3000px;padding:64px;background:#F2F6F4;display:flex;flex-direction:column;gap:32px">
+
+  <header style="display:flex;justify-content:space-between;align-items:flex-end;gap:32px">
+    <div style="display:flex;align-items:center;gap:20px">
+      <svg width="64" height="64" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#0B4F4A"></rect><circle cx="26" cy="23" r="2" fill="#fff" opacity=".5"></circle><circle cx="21" cy="19.5" r="2" fill="#fff" opacity=".65"></circle><circle cx="16" cy="16" r="2" fill="#fff" opacity=".8"></circle><circle cx="11" cy="12.5" r="2" fill="#fff"></circle><circle cx="6" cy="9" r="2.6" fill="#C9962C"></circle></svg>
+      <div>
+        <h1 style="font-size:44px">رائدة — نظام التصميم</h1>
+        <p class="mu" style="font-size:17px">دائرة شؤون المرأة · ديوان محافظة النجف · الإصدار 1.0</p>
+      </div>
+    </div>
+    <div class="card" style="padding:16px 20px;max-width:620px;border-color:#0B4F4A">
+      <p class="cap" style="color:#0B4F4A">قاعدة المنتج</p>
+      <p style="font-size:17px;font-weight:600">كل شاشة تجيب عن سؤالين: ما الخطوة التالية؟ وكم تبعد المتدربة عن الدخل؟ وما لا يخدم هذين السؤالين يُحذف.</p>
+    </div>
+  </header>
+
+  <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px">
+
+    <section class="sec">
+      <div class="sh"><h2 style="font-size:24px">الألوان</h2><span>كل الأزواج تحقق AA على الأقل</span></div>
+      <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px">
+        <div class="sw"><div class="chip" style="background:#0B4F4A;color:#fff">أساسي</div><p class="cap">#0B4F4A · العناوين، التنقل، الأزرار الثانوية · 9.4:1 على الأبيض</p></div>
+        <div class="sw"><div class="chip" style="background:#127A6E;color:#fff">ثانوي</div><p class="cap">#127A6E · المراحل المنجزة، الروابط، المؤشرات · 5.3:1</p></div>
+        <div class="sw"><div class="chip" style="background:#C9962C;color:#16302C">ذهبي</div><p class="cap">#C9962C · للإنجاز والدخل الموثّق والزر الرئيسي فقط · نص داكن فوقه 5.6:1</p></div>
+        <div class="sw"><div class="chip" style="background:#A6442F;color:#fff">تنبيه</div><p class="cap">#A6442F · الخطر، التأخر، معرّضة للانسحاب · 6.1:1</p></div>
+        <div class="sw"><div class="chip" style="background:#16302C;color:#fff">نص</div><p class="cap">#16302C · النص الأساسي · 14.6:1</p></div>
+        <div class="sw"><div class="chip" style="background:#4A615C;color:#fff">نص ثانوي</div><p class="cap">#4A615C · الوصف والتعليقات · 6.4:1</p></div>
+        <div class="sw"><div class="chip" style="background:#F2F6F4;color:#16302C;border:1px solid #D5E0DB">سطح</div><p class="cap">#F2F6F4 · خلفية التطبيق</p></div>
+        <div class="sw"><div class="chip" style="background:#FFFFFF;color:#16302C;border:1px solid #D5E0DB">أبيض</div><p class="cap">#FFFFFF · البطاقات · حدود #D5E0DB</p></div>
+      </div>
+      <div class="card" style="padding:16px 20px;background:#FBF6EA;border-color:#E8D4A6">
+        <p style="font-weight:600">قاعدة الذهبي: لا يظهر إلا في ثلاثة مواضع — زر الإجراء الرئيسي الواحد في الشاشة، عقدة «الدخل المستدام» عند توثيقها، وشارة الإنجاز. أي استخدام آخر يُضعف معناه.</p>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sh"><h2 style="font-size:24px">الطباعة</h2><span>IBM Plex Sans Arabic · ارتفاع السطر 1.7 للنص</span></div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;align-items:baseline;gap:24px"><span class="cap" style="width:140px">عرض 40 / 700</span><span style="font-size:40px;font-weight:700;line-height:1.3">من المهارة إلى دخل</span></div>
+        <div style="display:flex;align-items:baseline;gap:24px"><span class="cap" style="width:140px">ع1 32 / 700</span><span style="font-size:32px;font-weight:700;line-height:1.35">لوحة المتدربة</span></div>
+        <div style="display:flex;align-items:baseline;gap:24px"><span class="cap" style="width:140px">ع2 24 / 600</span><span style="font-size:24px;font-weight:600;line-height:1.4">الجلسة القادمة</span></div>
+        <div style="display:flex;align-items:baseline;gap:24px"><span class="cap" style="width:140px">ع3 19 / 600</span><span style="font-size:19px;font-weight:600">تسليم المشروع التطبيقي</span></div>
+        <div style="display:flex;align-items:baseline;gap:24px"><span class="cap" style="width:140px">نص 16 / 400</span><span style="font-size:16px">سجّلي عقدك أو فاتورتك وسيتحقق منها فريق الدائرة خلال 5 أيام عمل.</span></div>
+        <div style="display:flex;align-items:baseline;gap:24px"><span class="cap" style="width:140px">صغير 14 / 400</span><span style="font-size:14px" class="mu">آخر حفظ تلقائي قبل دقيقة</span></div>
+        <div style="display:flex;align-items:baseline;gap:24px"><span class="cap" style="width:140px">رقم 36 / 700</span><span style="font-size:36px;font-weight:700;font-variant-numeric:tabular-nums">350,000 د.ع</span></div>
+      </div>
+      <p class="mu" style="font-size:14px">الأرقام غربية (123) في كل الواجهات. الحد الأدنى لحجم النص على الجوال 14px، وللنص الأساسي 16px.</p>
+    </section>
+
+    <section class="sec">
+      <div class="sh"><h2 style="font-size:24px">الأزرار</h2><span>ارتفاع أدنى 44px · زر ذهبي واحد فقط في كل شاشة</span></div>
+      <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center">
+        <button class="btn bg" type="button">سجّلي الآن</button>
+        <button class="btn bt" type="button">متابعة</button>
+        <button class="btn bo" type="button">حفظ كمسودة</button>
+        <button class="btn bq" type="button">تخطّي</button>
+        <button class="btn bd" type="button" disabled="">غير متاح</button>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center">
+        <button class="btn bt" type="button" style="min-height:56px;padding:0 28px;font-size:17px">زر كبير للوضع المبسّط 56px</button>
+        <button class="btn bo" type="button" aria-label="تحميل للعمل دون اتصال" style="width:44px;padding:0">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"></path><path d="M7 10l5 5 5-5"></path><path d="M5 20h14"></path></svg>
+        </button>
+      </div>
+      <table style="width:100%;border-collapse:collapse;font-size:14px">
+        <tr style="border-bottom:1px solid #E1E9E5"><td style="padding:8px 0;font-weight:600;width:120px">ذهبي</td><td class="mu">الإجراء الذي يقرّب من الدخل: التسجيل، تسليم المشروع، تسجيل دخل.</td></tr>
+        <tr style="border-bottom:1px solid #E1E9E5"><td style="padding:8px 0;font-weight:600">أخضر داكن</td><td class="mu">التنقل بين الخطوات والإجراءات الإدارية.</td></tr>
+        <tr><td style="padding:8px 0;font-weight:600">محيطي / نصي</td><td class="mu">إجراءات ثانوية وقابلة للتراجع.</td></tr>
+      </table>
+    </section>
+
+    <section class="sec">
+      <div class="sh"><h2 style="font-size:24px">الحقول</h2><span>تسمية فوق الحقل دائماً · لا نص توضيحي بديلاً عن التسمية</span></div>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px">
+        <div class="fld"><label for="ds1">الاسم الكامل</label><input id="ds1" class="in" value="زينب حسن"></div>
+        <div class="fld"><label for="ds2">المسار</label><select id="ds2" class="in"><option>التصميم الجرافيكي</option></select></div>
+        <div class="fld"><label for="ds3">مبلغ العقد (دينار عراقي)</label><input id="ds3" class="in" value="abc" style="border:2px solid #A6442F"><span style="font-size:13px;color:#8E3826;font-weight:600">اكتبي المبلغ بالأرقام فقط، مثل 250000</span></div>
+        <div class="fld"><label for="ds4">رقم الهاتف</label><input id="ds4" class="in" value="07801234567" dir="ltr" style="text-align:right"><span style="font-size:13px" class="mu">سنرسل رمز التحقق برسالة نصية</span></div>
+      </div>
+      <div style="border:1.5px dashed #AFC2BA;border-radius:8px;padding:20px;display:flex;align-items:center;gap:16px;background:#F7FAF9">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0B4F4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V5"></path><path d="M7 10l5-5 5 5"></path><path d="M5 20h14"></path></svg>
+        <div style="flex:1"><p style="font-weight:600">ارفعي صورة العقد أو الفاتورة</p><p class="mu" style="font-size:13px">صورة من الهاتف تكفي · حتى 10MB · تُضغط تلقائياً قبل الرفع</p></div>
+        <button class="btn bo" type="button">اختيار ملف</button>
+      </div>
+      <p style="display:flex;align-items:center;gap:8px;font-size:14px;color:#127A6E;font-weight:600">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>
+        حُفظت إجاباتك تلقائياً على هذا الجهاز
+      </p>
+    </section>
+
+    <section class="sec">
+      <div class="sh"><h2 style="font-size:24px">البطاقات</h2><span>زاوية 8px · حد 1px · بلا ظلال ولا تدرّجات</span></div>
+      <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px">
+        <div class="card" style="padding:20px;display:flex;flex-direction:column;gap:10px">
+          <span class="tag nt" style="align-self:flex-start">مسار · 16 أسبوعاً</span>
+          <h3 style="font-size:19px">التصميم الجرافيكي</h3>
+          <p class="mu" style="font-size:14px">نموذج الدخل: عمل حر بالقطعة لمتاجر محلية</p>
+          <a href="#" style="font-weight:600;font-size:14px">تفاصيل المسار ←</a>
+        </div>
+        <div class="card" style="padding:20px;display:flex;flex-direction:column;gap:6px">
+          <p class="cap">نسبة التحول إلى دخل</p>
+          <p style="font-size:36px;font-weight:700;line-height:1.2">31%</p>
+          <p style="font-size:13px;color:#127A6E;font-weight:600">+4 نقاط عن الربع السابق</p>
+        </div>
+        <div class="card" style="padding:20px;display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;gap:12px;align-items:center">
+            <div style="width:48px;height:48px;border-radius:24px;background:#E1F0EC;color:#0B4F4A;display:flex;align-items:center;justify-content:center;font-weight:700">ز ح</div>
+            <div><p style="font-weight:600">زينب ح.</p><p class="mu" style="font-size:13px">تصميم جرافيكي</p></div>
+          </div>
+          <span class="tag ok" style="align-self:flex-start">متاحة الآن</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sh"><h2 style="font-size:24px">الشارات والحالات</h2><span>النص يحمل المعنى دائماً، واللون مساعد</span></div>
+      <div style="display:flex;flex-wrap:wrap;gap:12px">
+        <span class="tag gd">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>
+          موثّق
+        </span>
+        <span class="tag wait">قيد التحقق</span>
+        <span class="tag al">يحتاج تصحيحاً</span>
+        <span class="tag ok">مكتمل</span>
+        <span class="tag nt">لم يبدأ</span>
+        <span class="tag ok">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"></path><path d="M7 10l5 5 5-5"></path><path d="M5 20h14"></path></svg>
+          محفوظ على الجهاز
+        </span>
+        <span class="tag nt">قابل للتحميل · 18MB</span>
+        <span class="tag al">معرّضة للانسحاب</span>
+        <span class="tag wait">بانتظار قبول العميل</span>
+      </div>
+      <table style="width:100%;border-collapse:collapse;font-size:14px">
+        <tr style="border-bottom:1px solid #E1E9E5"><td style="padding:8px 0;font-weight:600;width:140px">موثّق (ذهبي)</td><td class="mu">دخل تحقق منه الفريق بوثيقة: عقد، فاتورة، أو حوالة.</td></tr>
+        <tr style="border-bottom:1px solid #E1E9E5"><td style="padding:8px 0;font-weight:600">قيد التحقق</td><td class="mu">مُسجَّل وينتظر مراجعة الفريق، مع موعد متوقع.</td></tr>
+        <tr><td style="padding:8px 0;font-weight:600">يحتاج تصحيحاً</td><td class="mu">مرفق مع سبب واضح وخطوة واحدة للحل.</td></tr>
+      </table>
+    </section>
+  </div>
+
+  <section class="sec">
+    <div class="sh"><h2 style="font-size:24px">العمود الفقري للمراحل الخمس</h2><span>العنصر المميّز للمنصة · يتكرر في كل بوابة · يُقرأ من اليمين إلى اليسار</span></div>
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <p class="cap">كامل · المرحلة 1 (بداية الرحلة)</p>
+        <dc-import name="Spine" current="1" variant="full" hint-size="100%,96px"></dc-import>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <p class="cap">كامل · المرحلة 3 (الحالة الحالية مُبرزة)</p>
+        <dc-import name="Spine" current="3" variant="full" hint-size="100%,96px"></dc-import>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <p class="cap">كامل · الدخل موثّق (العقدة الأخيرة ذهبية)</p>
+        <dc-import name="Spine" current="5" achieved="yes" variant="full" hint-size="100%,96px"></dc-import>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <p class="cap">مضغوط · للجوال ورؤوس الصفحات (اسم المرحلة الحالية فقط)</p>
+        <div style="width:328px"><dc-import name="Spine" current="4" variant="compact" hint-size="100%,64px"></dc-import></div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;font-size:14px">
+      <div class="card" style="padding:14px"><p style="font-weight:600">منجزة</p><p class="mu">دائرة #127A6E بعلامة صح، والخط قبلها ممتلئ.</p></div>
+      <div class="card" style="padding:14px"><p style="font-weight:600">الحالية</p><p class="mu">حلقة #0B4F4A بسمك 3px، الاسم بخط عريض، وتسمية «أنتِ هنا».</p></div>
+      <div class="card" style="padding:14px"><p style="font-weight:600">قادمة</p><p class="mu">دائرة بيضاء بحد رمادي، الرقم ظاهر.</p></div>
+      <div class="card" style="padding:14px"><p style="font-weight:600">الدخل الموثّق</p><p class="mu">العقدة الخامسة ذهبية — الاستخدام الوحيد للذهبي داخل العمود.</p></div>
+    </div>
+  </section>
+
+  <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px">
+    <section class="sec">
+      <div class="sh"><h2 style="font-size:24px">الحالات الفارغة</h2><span>كل حالة فارغة تنتهي بخطوة تالية واحدة</span></div>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px">
+        <div class="card" style="padding:28px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="#127A6E" stroke-width="2" aria-hidden="true"><rect x="8" y="10" width="32" height="28" rx="4"></rect><path d="M16 20h16M16 27h10"></path></svg>
+          <h3 style="font-size:18px">لم تسجّلي أي دخل بعد</h3>
+          <p class="mu" style="font-size:14px">أول عقد أو فاتورة — حتى لو كانت صغيرة — تنقلك إلى المرحلة الخامسة.</p>
+          <button class="btn bg" type="button">تسجيل أول دخل</button>
+        </div>
+        <div class="card" style="padding:28px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="#127A6E" stroke-width="2" aria-hidden="true"><circle cx="21" cy="21" r="11"></circle><path d="M29 29l9 9"></path></svg>
+          <h3 style="font-size:18px">لا توجد خريجات بهذه المعايير</h3>
+          <p class="mu" style="font-size:14px">جرّب إزالة فلتر «متاحة الآن»، أو أرسل طلبك وسنرشّح لك خلال 48 ساعة.</p>
+          <button class="btn bt" type="button">إرسال طلب</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sh"><h2 style="font-size:24px">الشبكة من اليمين لليسار</h2><span>سطح المكتب 12 عموداً · الجوال 4 أعمدة</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <p class="cap">سطح المكتب 1280 · هامش 40 · فاصل 24 · قائمة جانبية 3 أعمدة على اليمين</p>
+        <div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:8px;height:72px">
+          <div style="grid-column:span 3;background:#0B4F4A;border-radius:4px;color:#fff;font-size:12px;padding:6px">التنقل</div>
+          <div style="grid-column:span 9;background:#E1F0EC;border-radius:4px;font-size:12px;padding:6px;color:#0B4F4A">المحتوى يتدفق من اليمين</div>
+        </div>
+        <p class="cap" style="margin-top:12px">الجوال 360 · هامش 16 · فاصل 12 · شريط تبويب سفلي</p>
+        <div style="width:200px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;height:72px">
+          <div style="background:#E1F0EC;border-radius:4px"></div><div style="background:#E1F0EC;border-radius:4px"></div><div style="background:#E1F0EC;border-radius:4px"></div><div style="background:#E1F0EC;border-radius:4px"></div>
+        </div>
+      </div>
+      <ul style="margin:0;padding-inline-start:20px;font-size:14px;display:flex;flex-direction:column;gap:4px">
+        <li>الأسهم والتقدم معكوسة: «التالي» يشير لليسار ←، والمرحلة 1 أقصى اليمين.</li>
+        <li>لا تُعكس: الشعارات، رموز التشغيل، أرقام الهاتف والمبالغ (تُكتب LTR داخل سطر RTL).</li>
+        <li>أصغر عرض مدعوم 320px؛ لا تمرير أفقي إلا داخل الجداول.</li>
+        <li>اللغة الإنجليزية تظهر فقط في شاشات الشركاء والمانحين عبر مفتاح EN.</li>
+      </ul>
+    </section>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1800,"height":3000}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

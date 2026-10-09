@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>رائدة — إدارة الدفعات</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#DCE5E1}
+*{box-sizing:border-box}
+a{color:#0B4F4A}a:hover{color:#127A6E}
+.R{font-family:'IBM Plex Sans Arabic',Tajawal,sans-serif;color:#16302C;line-height:1.7;font-size:15px}
+.R h1,.R h2,.R h3,.R h4,.R p{margin:0}
+.R h1,.R h2,.R h3,.R h4{line-height:1.35;font-weight:700}
+.cap{font-size:13px;font-weight:600;color:#3F5853}
+.fd{width:1280px;background:#F2F6F4;border:1px solid #BFCFC8;border-radius:12px;overflow:hidden}
+.fm{width:360px;background:#F2F6F4;border:1px solid #BFCFC8;border-radius:20px;overflow:hidden}
+.card{background:#fff;border:1px solid #D5E0DB;border-radius:8px}
+.btn{min-height:44px;padding:0 20px;border-radius:8px;font-family:inherit;font-size:15px;font-weight:600;display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid transparent;text-decoration:none;cursor:pointer;white-space:nowrap}
+.bg{background:#C9962C;color:#16302C}
+.bt{background:#0B4F4A;color:#fff}
+.bo{background:#fff;color:#0B4F4A;border-color:#0B4F4A}
+.sm{min-height:36px;padding:0 12px;font-size:13px}
+.tag{display:inline-flex;align-items:center;gap:6px;min-height:26px;padding:0 10px;border-radius:13px;font-size:13px;font-weight:600;white-space:nowrap}
+.ok{background:#E1F0EC;color:#0B4F4A}
+.wait{background:#F8EED8;color:#6B4C0E}
+.al{background:#F6E4DF;color:#8E3826}
+.nt{background:#EDF1EF;color:#3F5853}
+.mu{color:#4A615C}
+.side{width:232px;flex:none;background:#16302C;color:#fff;display:flex;flex-direction:column;padding:20px 12px;gap:4px}
+.side a{color:#C9D6D0;text-decoration:none;min-height:44px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 14px;border-radius:8px;font-weight:500}
+.side a.on{background:#0B4F4A;color:#fff;font-weight:700}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th{font-size:12px;color:#3F5853;font-weight:600;text-align:right;padding:10px 12px;background:#F7FAF9;border-bottom:1px solid #D5E0DB}
+td{padding:10px 12px;border-bottom:1px solid #E1E9E5;vertical-align:middle}
+.att{display:grid;grid-template-columns:150px repeat(9,minmax(0,1fr));gap:3px;align-items:center;font-size:13px}
+.att i{height:22px;border-radius:3px;display:block}
+.p{background:#127A6E}.a{background:#E9B7AA}.x{background:#F8EED8;border:1px dashed #9A7020}.f{background:#E1E9E5}
+</style>
+</helmet>
+<div class="R" style="width:1800px;height:1500px;padding:40px;background:#DCE5E1;display:flex;gap:80px;align-items:flex-start">
+
+<div style="display:flex;flex-direction:column;gap:12px">
+<p class="cap">سطح المكتب · 1280</p>
+<div class="fd" style="display:flex">
+  <aside class="side">
+    <div style="padding:0 10px 20px;line-height:1.3"><p style="font-weight:700;font-size:18px">رائدة</p><p style="font-size:11px;color:#9FB3AD">بوابة الإدارة</p></div>
+    <a href="#">لوحة الأثر</a><a href="#" class="on">الدفعات</a><a href="#">التحقق من الدخل <span class="tag wait" style="min-height:22px">17</span></a><a href="#">الشركاء والتمويل</a><a href="#">المسارات</a><a href="#">المستخدمون</a>
+  </aside>
+
+  <main style="flex:1;min-width:0;padding:28px 32px;display:flex;flex-direction:column;gap:18px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px">
+      <div><p class="cap">التصميم الجرافيكي · المدرّبة: م. هدى العلي</p><h1 style="font-size:26px">الدفعة 3 · الأسبوع 9 من 16</h1></div>
+      <div style="display:flex;gap:8px"><select class="in" aria-label="الدفعة" style="height:44px;border:1px solid #AFC2BA;border-radius:8px;padding:0 12px;font-family:inherit;width:260px"><option>التصميم الجرافيكي · الدفعة 3</option></select><a href="#" class="btn bo">تسجيل حضور جلسة</a></div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px">
+      <div class="card" style="padding:16px"><p class="cap">مسجّلات / نشطات</p><p style="font-size:28px;font-weight:700">28 / 25</p><p class="mu" style="font-size:13px">3 انسحبن (11%)</p></div>
+      <div class="card" style="padding:16px"><p class="cap">متوسط الحضور</p><p style="font-size:28px;font-weight:700">86%</p><p class="mu" style="font-size:13px">الحد الأدنى للتخرج 80%</p></div>
+      <div class="card" style="padding:16px;border:2px solid #A6442F"><p class="cap" style="color:#8E3826">معرّضات للانسحاب</p><p style="font-size:28px;font-weight:700;color:#8E3826">4</p><p class="mu" style="font-size:13px">2 لم يُتواصل معهن بعد</p></div>
+      <div class="card" style="padding:16px"><p class="cap">مشاريع تطبيقية مُسندة</p><p style="font-size:28px;font-weight:700">19 / 25</p><p class="mu" style="font-size:13px">6 بانتظار عميل</p></div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px;align-items:start">
+      <section class="card" style="grid-column:span 8;overflow:hidden">
+        <div style="padding:14px 16px;display:flex;justify-content:space-between;align-items:center"><h2 style="font-size:18px">معرّضات للانسحاب · مرتّبة حسب الخطورة</h2><span class="mu" style="font-size:12px">يُحسب تلقائياً يومياً</span></div>
+        <table>
+          <thead><tr><th>المتدربة</th><th>سبب التنبيه</th><th>آخر تواصل</th><th>الإجراء</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight:600">رنا ص.</td><td><span class="tag al">غياب 3 جلسات متتالية</span> <span class="tag al">لم تفتح المنصة 12 يوماً</span></td><td class="mu">لا يوجد</td><td><a href="#" class="btn bt sm">اتصال</a></td></tr>
+            <tr><td style="font-weight:600">هبة ن.</td><td><span class="tag al">رسبت اختبارين</span> <span class="tag wait">حضور 74%</span></td><td class="mu">لا يوجد</td><td><a href="#" class="btn bt sm">اتصال</a></td></tr>
+            <tr><td style="font-weight:600">آمنة ر.</td><td><span class="tag wait">رعاية أطفال · طلبت جلسات مسائية</span></td><td class="mu">5 تشرين الأول</td><td><a href="#" class="btn bo sm">نقل لجلسات مسائية</a></td></tr>
+            <tr><td style="font-weight:600">دعاء ك.</td><td><span class="tag wait">الإنترنت ضعيف · لم تحمّل الوحدة 4</span></td><td class="mu">7 تشرين الأول</td><td><a href="#" class="btn bo sm">إرسال المواد على USB</a></td></tr>
+          </tbody>
+        </table>
+        <div style="padding:14px 16px;display:flex;flex-direction:column;gap:8px;border-top:1px solid #D5E0DB">
+          <div style="display:flex;justify-content:space-between;align-items:center"><p style="font-weight:700;font-size:15px">الحضور · الأسابيع 1–9</p><div style="display:flex;gap:12px;font-size:12px" class="mu"><span style="display:flex;gap:4px;align-items:center"><i class="p" style="width:12px;height:12px;border-radius:2px;display:inline-block"></i>حاضرة</span><span style="display:flex;gap:4px;align-items:center"><i class="a" style="width:12px;height:12px;border-radius:2px;display:inline-block"></i>غائبة</span><span style="display:flex;gap:4px;align-items:center"><i class="x" style="width:12px;height:12px;border-radius:2px;display:inline-block"></i>بعذر</span></div></div>
+          <div class="att"><span>رنا ص.</span><i class="p"></i><i class="p"></i><i class="p"></i><i class="p"></i><i class="p"></i><i class="p"></i><i class="a"></i><i class="a"></i><i class="a"></i></div>
+          <div class="att"><span>هبة ن.</span><i class="p"></i><i class="a"></i><i class="p"></i><i class="p"></i><i class="a"></i><i class="p"></i><i class="p"></i><i class="p"></i><i class="p"></i></div>
+          <div class="att"><span>آمنة ر.</span><i class="p"></i><i class="p"></i><i class="p"></i><i class="x"></i><i class="p"></i><i class="x"></i><i class="p"></i><i class="p"></i><i class="p"></i></div>
+          <div class="att"><span>زينب ح.</span><i class="p"></i><i class="p"></i><i class="p"></i><i class="p"></i><i class="p"></i><i class="x"></i><i class="p"></i><i class="p"></i><i class="p"></i></div>
+          <div class="att"><span>فاطمة ع.</span><i class="p"></i><i class="p"></i><i class="p"></i><i class="p"></i><i class="p"></i><i class="p"></i><i class="p"></i><i class="p"></i><i class="p"></i></div>
+          <a href="#" style="font-size:13px;font-weight:600">عرض الـ 25 كاملة ←</a>
+        </div>
+      </section>
+
+      <div style="grid-column:span 4;display:flex;flex-direction:column;gap:16px">
+        <section class="card" style="padding:18px;display:flex;flex-direction:column;gap:12px;border:2px solid #0B4F4A">
+          <div style="display:flex;justify-content:space-between;align-items:center"><h2 style="font-size:17px">بوابة التوسّع</h2><span class="tag ok">مفتوحة</span></div>
+          <p style="font-size:14px">قاعدة 25%: لا يُفتح مسار جديد إلا إذا حققت الدفعات المكتملة في هذا المسار تحولاً إلى دخل موثّق بنسبة 25% فأكثر.</p>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:13px"><span class="mu">الدفعتان 1 و2 (مكتملتان)</span><b>29%</b></div>
+            <div style="position:relative;height:12px;background:#E1E9E5;border-radius:6px;margin-top:6px">
+              <div style="width:58%;height:100%;background:#127A6E;border-radius:6px"></div>
+              <div style="position:absolute;top:-4px;bottom:-4px;right:50%;width:2px;background:#16302C"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:11px;margin-top:4px" class="mu"><span>0%</span><span style="font-weight:700;color:#16302C">25% الحد</span><span>50%</span></div>
+          </div>
+          <p class="mu" style="font-size:13px">الدفعة 3 الحالية: تحتاج 7 حالات دخل من 25 للحفاظ على البوابة مفتوحة.</p>
+          <a href="#" class="btn bt">طلب فتح مسار جديد</a>
+        </section>
+        <section class="card" style="padding:18px;display:flex;flex-direction:column;gap:8px">
+          <h2 style="font-size:17px">توزيع الدفعة على المراحل</h2>
+          <dc-import name="Spine" current="3" variant="compact" hint-size="100%,64px"></dc-import>
+          <div style="display:flex;justify-content:space-between;font-size:13px"><span>في المسار التخصصي</span><b>25</b></div>
+          <div style="display:flex;justify-content:space-between;font-size:13px"><span>أنهين المشروع التطبيقي</span><b>0</b></div>
+          <div style="display:flex;justify-content:space-between;font-size:13px"><span>الإطلاق المتوقع</span><b>الأسبوع 15</b></div>
+        </section>
+      </div>
+    </div>
+  </main>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:12px">
+<p class="cap">الجوال · 360 · للمشرفة في الميدان</p>
+<div class="fm">
+  <header style="background:#16302C;color:#fff;padding:14px 16px"><p style="font-size:12px;color:#9FB3AD">التصميم · الدفعة 3 · أسبوع 9</p><h1 style="font-size:19px">إدارة الدفعة</h1></header>
+  <div style="padding:12px 16px;display:flex;flex-direction:column;gap:10px">
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;text-align:center">
+      <div class="card" style="padding:10px"><p style="font-size:20px;font-weight:700">25</p><p class="cap" style="font-size:11px">نشطة</p></div>
+      <div class="card" style="padding:10px"><p style="font-size:20px;font-weight:700">86%</p><p class="cap" style="font-size:11px">حضور</p></div>
+      <div class="card" style="padding:10px;border-color:#A6442F"><p style="font-size:20px;font-weight:700;color:#8E3826">4</p><p class="cap" style="font-size:11px">معرّضات</p></div>
+    </div>
+    <p style="font-weight:700">يحتجن تواصلاً اليوم</p>
+    <div class="card" style="padding:12px;display:flex;flex-direction:column;gap:8px">
+      <div style="display:flex;justify-content:space-between;align-items:center"><p style="font-weight:700">رنا ص.</p><span class="tag al" style="font-size:12px">خطورة عالية</span></div>
+      <p style="font-size:13px">غياب 3 جلسات · لم تفتح المنصة 12 يوماً</p>
+      <div style="display:flex;gap:8px"><a href="#" class="btn bt" style="flex:1">اتصال</a><a href="#" class="btn bo" style="flex:1">واتساب</a></div>
+    </div>
+    <div class="card" style="padding:12px;display:flex;flex-direction:column;gap:8px">
+      <div style="display:flex;justify-content:space-between;align-items:center"><p style="font-weight:700">هبة ن.</p><span class="tag al" style="font-size:12px">خطورة عالية</span></div>
+      <p style="font-size:13px">رسبت اختبارين · حضور 74%</p>
+      <div style="display:flex;gap:8px"><a href="#" class="btn bt" style="flex:1">اتصال</a><a href="#" class="btn bo" style="flex:1">واتساب</a></div>
+    </div>
+    <div class="card" style="padding:12px;display:flex;justify-content:space-between;align-items:center"><div><p style="font-weight:600;font-size:14px">آمنة ر. · دعاء ك.</p><p class="mu" style="font-size:12px">تم التواصل · إجراء قيد التنفيذ</p></div><span class="tag wait" style="font-size:12px">متابعة</span></div>
+    <div class="card" style="padding:12px;display:flex;flex-direction:column;gap:6px">
+      <div style="display:flex;justify-content:space-between;align-items:center"><p style="font-weight:700;font-size:14px">بوابة التوسّع 25%</p><span class="tag ok" style="font-size:12px">مفتوحة · 29%</span></div>
+      <div style="position:relative;height:10px;background:#E1E9E5;border-radius:5px"><div style="width:58%;height:100%;background:#127A6E;border-radius:5px"></div><div style="position:absolute;top:-3px;bottom:-3px;right:50%;width:2px;background:#16302C"></div></div>
+    </div>
+    <a href="#" class="btn bo">تسجيل حضور برمز QR</a>
+  </div>
+</div>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1800,"height":1500}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+{
+  "v": 3,
+  "createdOnFiles": {"v": 1, "at": "2026-10-09T18:40:00Z"},
+  "title": "رائدة — نظام التصميم والشاشات",
+  "launch": {"view": "canvas", "page": "system"},
+  "pages": [
+    {"id": "system", "name": "نظام التصميم"},
+    {"id": "public", "name": "أ. الموقع العام"},
+    {"id": "trainee", "name": "ب. بوابة المتدربة"},
+    {"id": "partner", "name": "ج. بوابة الشريك والعميل"},
+    {"id": "admin", "name": "د. بوابة الإدارة"},
+    {"id": "states", "name": "حالات خاصة"}
+  ],
+  "boards": {
+    "Main.dc.html": {"x": 0, "y": 0, "w": 1800, "h": 3000, "title": "نظام التصميم", "page": "system"},
+    "Spine.dc.html": {"x": 0, "y": 3120, "w": 900, "h": 120, "title": "مكوّن العمود الفقري — 5 مراحل", "page": "system"},
+
+    "Landing.dc.html": {"x": 0, "y": 0, "w": 1800, "h": 4300, "title": "01 · الصفحة الرئيسية", "page": "public"},
+    "Track.dc.html": {"x": 0, "y": 4420, "w": 1800, "h": 2500, "title": "02 · تفاصيل المسار", "page": "public"},
+    "Register.dc.html": {"x": 0, "y": 7040, "w": 2240, "h": 1300, "title": "03 · التسجيل وتقييم المهارات", "page": "public"},
+
+    "Dashboard.dc.html": {"x": 0, "y": 0, "w": 1800, "h": 1100, "title": "04 · لوحة المتدربة", "page": "trainee"},
+    "MyTrack.dc.html": {"x": 0, "y": 1220, "w": 1800, "h": 1300, "title": "05 · مساري", "page": "trainee"},
+    "Project.dc.html": {"x": 0, "y": 2640, "w": 1800, "h": 1300, "title": "06 · مشروعي التطبيقي", "page": "trainee"},
+    "Portfolio.dc.html": {"x": 0, "y": 4060, "w": 1800, "h": 1700, "title": "07 · ملف أعمالي العام", "page": "trainee"},
+    "Income.dc.html": {"x": 0, "y": 5880, "w": 1800, "h": 1500, "title": "08 · دخلي", "page": "trainee"},
+    "Certificates.dc.html": {"x": 0, "y": 7500, "w": 1800, "h": 1300, "title": "09 · شهاداتي", "page": "trainee"},
+
+    "Request.dc.html": {"x": 0, "y": 0, "w": 1800, "h": 1500, "title": "10 · طلب خدمة أو توظيف", "page": "partner"},
+    "Directory.dc.html": {"x": 0, "y": 1620, "w": 1800, "h": 1500, "title": "11 · دليل الخريجات", "page": "partner"},
+    "Sponsor.dc.html": {"x": 0, "y": 3240, "w": 1800, "h": 1400, "title": "12 · لوحة الجهة الراعية", "page": "partner"},
+
+    "Impact.dc.html": {"x": 0, "y": 0, "w": 1800, "h": 1500, "title": "13 · لوحة الأثر", "page": "admin"},
+    "Cohort.dc.html": {"x": 0, "y": 1620, "w": 1800, "h": 1500, "title": "14 · إدارة الدفعات", "page": "admin"},
+    "Funding.dc.html": {"x": 0, "y": 3240, "w": 1800, "h": 1300, "title": "15 · متابعة الشركاء والتمويل", "page": "admin"},
+
+    "Offline.dc.html": {"x": 0, "y": 0, "w": 2240, "h": 1100, "title": "حالة: بدون اتصال / اتصال ضعيف", "page": "states"},
+    "Simple.dc.html": {"x": 0, "y": 1220, "w": 1400, "h": 980, "title": "حالة: الوضع المبسّط", "page": "states"}
+  },
+  "order": [
+    "Main.dc.html", "Spine.dc.html",
+    "Landing.dc.html", "Track.dc.html", "Register.dc.html",
+    "Dashboard.dc.html", "MyTrack.dc.html", "Project.dc.html", "Portfolio.dc.html", "Income.dc.html", "Certificates.dc.html",
+    "Request.dc.html", "Directory.dc.html", "Sponsor.dc.html",
+    "Impact.dc.html", "Cohort.dc.html", "Funding.dc.html",
+    "Offline.dc.html", "Simple.dc.html"
+  ],
+  "notes": {
+    "t_system": {"x": 0, "y": -300, "text": "نظام التصميم — رائدة", "kind": "title1", "maxW": 1800, "page": "system"},
+    "t_public": {"x": 0, "y": -300, "text": "أ. الموقع العام", "kind": "title1", "maxW": 1800, "page": "public"},
+    "t_trainee": {"x": 0, "y": -300, "text": "ب. بوابة المتدربة", "kind": "title1", "maxW": 1800, "page": "trainee"},
+    "t_partner": {"x": 0, "y": -300, "text": "ج. بوابة الشريك والعميل", "kind": "title1", "maxW": 1800, "page": "partner"},
+    "t_admin": {"x": 0, "y": -300, "text": "د. بوابة الإدارة", "kind": "title1", "maxW": 1800, "page": "admin"},
+    "t_states": {"x": 0, "y": -300, "text": "حالات خاصة: بدون اتصال · الوضع المبسّط", "kind": "title1", "maxW": 2240, "page": "states"}
+  },
+  "designSystems": []
+}

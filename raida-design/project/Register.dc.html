@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>رائدة — التسجيل وتقييم المهارات</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#DCE5E1}
+*{box-sizing:border-box}
+a{color:#0B4F4A}a:hover{color:#127A6E}
+.R{font-family:'IBM Plex Sans Arabic',Tajawal,sans-serif;color:#16302C;line-height:1.7;font-size:15px}
+.R h1,.R h2,.R h3,.R h4,.R p{margin:0}
+.R h1,.R h2,.R h3,.R h4{line-height:1.35;font-weight:700}
+.cap{font-size:13px;font-weight:600;color:#3F5853}
+.fd{width:1280px;background:#F2F6F4;border:1px solid #BFCFC8;border-radius:12px;overflow:hidden}
+.fm{width:360px;background:#F2F6F4;border:1px solid #BFCFC8;border-radius:20px;overflow:hidden}
+.card{background:#fff;border:1px solid #D5E0DB;border-radius:8px}
+.btn{min-height:44px;padding:0 20px;border-radius:8px;font-family:inherit;font-size:15px;font-weight:600;display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid transparent;text-decoration:none;cursor:pointer;white-space:nowrap}
+.bg{background:#C9962C;color:#16302C}
+.bt{background:#0B4F4A;color:#fff}
+.bo{background:#fff;color:#0B4F4A;border-color:#0B4F4A}
+.tag{display:inline-flex;align-items:center;gap:6px;min-height:26px;padding:0 10px;border-radius:13px;font-size:13px;font-weight:600;white-space:nowrap}
+.ok{background:#E1F0EC;color:#0B4F4A}
+.nt{background:#EDF1EF;color:#3F5853}
+.gd{background:#C9962C;color:#16302C}
+.mu{color:#4A615C}
+.q{display:flex;flex-direction:column;gap:10px}
+.q legend,.ql{font-weight:600;font-size:16px;padding:0}
+fieldset{border:0;margin:0;padding:0;min-width:0}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{min-height:44px;padding:0 16px;border:1px solid #AFC2BA;border-radius:8px;background:#fff;display:inline-flex;align-items:center;gap:8px;font-size:15px;cursor:pointer}
+.opt.on{border:2px solid #0B4F4A;background:#E1F0EC;font-weight:600;color:#0B4F4A}
+.opt input{accent-color:#0B4F4A;width:18px;height:18px;margin:0}
+.steps{display:flex;gap:6px}
+.steps i{flex:1;height:6px;border-radius:3px;background:#D5E0DB;display:block}
+.steps i.d{background:#127A6E}
+.steps i.c{background:#0B4F4A}
+.saved{display:flex;align-items:center;gap:6px;font-size:13px;color:#127A6E;font-weight:600}
+</style>
+</helmet>
+<div class="R" style="width:2240px;height:1300px;padding:40px;background:#DCE5E1;display:flex;gap:80px;align-items:flex-start">
+
+<div style="display:flex;flex-direction:column;gap:12px">
+<p class="cap">سطح المكتب · 1280 · الخطوة 2 من 4: وقتك وظروفك</p>
+<div class="fd" style="min-height:1120px">
+  <header style="height:64px;background:#fff;border-bottom:1px solid #D5E0DB;display:flex;align-items:center;justify-content:space-between;padding:0 40px">
+    <div style="display:flex;align-items:center;gap:10px">
+      <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#0B4F4A"></rect><circle cx="26" cy="23" r="2" fill="#fff" opacity=".5"></circle><circle cx="21" cy="19.5" r="2" fill="#fff" opacity=".65"></circle><circle cx="16" cy="16" r="2" fill="#fff" opacity=".8"></circle><circle cx="11" cy="12.5" r="2" fill="#fff"></circle><circle cx="6" cy="9" r="2.6" fill="#C9962C"></circle></svg>
+      <p style="font-weight:700;font-size:18px;color:#0B4F4A">رائدة · التسجيل</p>
+    </div>
+    <p class="saved"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>حُفظ تلقائياً قبل لحظات · يمكنك الإكمال لاحقاً من أي جهاز</p>
+  </header>
+
+  <div style="max-width:880px;margin:0 auto;padding:40px 0;display:flex;flex-direction:column;gap:28px">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="display:flex;justify-content:space-between;font-size:14px"><span style="font-weight:700;color:#0B4F4A">الخطوة 2 من 4 · وقتك وظروفك</span><span class="mu">بقي نحو 6 دقائق</span></div>
+      <div class="steps" aria-hidden="true"><i class="d"></i><i class="c"></i><i></i><i></i></div>
+      <div style="display:flex;justify-content:space-between;font-size:13px" class="mu"><span>1 · بياناتك</span><span style="color:#0B4F4A;font-weight:600">2 · وقتك وظروفك</span><span>3 · مهاراتك</span><span>4 · اهتماماتك</span></div>
+    </div>
+
+    <div class="card" style="padding:36px;display:flex;flex-direction:column;gap:28px">
+      <div><h1 style="font-size:26px">نصمّم الجدول على ظروفك، لا العكس</h1><p class="mu">لا توجد إجابة خاطئة. هذه الأسئلة تساعدنا على اقتراح المسار والمواعيد المناسبة لك.</p></div>
+
+      <fieldset class="q"><legend>1. كم ساعة تستطيعين تخصيصها أسبوعياً؟</legend>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="h">أقل من 4</label>
+          <label class="opt on"><input type="radio" name="h" checked="">4–6 ساعات</label>
+          <label class="opt"><input type="radio" name="h">7–10 ساعات</label>
+          <label class="opt"><input type="radio" name="h">أكثر من 10</label>
+        </div>
+      </fieldset>
+
+      <fieldset class="q"><legend>2. أي وقت يناسبك أكثر؟ <span class="mu" style="font-weight:400;font-size:14px">(اختاري كل ما يناسب)</span></legend>
+        <div class="opts">
+          <label class="opt on"><input type="checkbox" checked="">صباحاً بعد خروج الأطفال للمدرسة</label>
+          <label class="opt"><input type="checkbox">بعد الظهر</label>
+          <label class="opt on"><input type="checkbox" checked="">مساءً</label>
+        </div>
+      </fieldset>
+
+      <fieldset class="q"><legend>3. كيف تفضّلين الحضور؟</legend>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="m">حضورياً في مركز الدائرة</label>
+          <label class="opt"><input type="radio" name="m">عن بُعد من الهاتف</label>
+          <label class="opt on"><input type="radio" name="m" checked="">مزيج من الاثنين</label>
+        </div>
+      </fieldset>
+
+      <fieldset class="q"><legend>4. ما الجهاز الذي ستستخدمينه؟</legend>
+        <div class="opts">
+          <label class="opt on"><input type="radio" name="d" checked="">هاتف فقط</label>
+          <label class="opt"><input type="radio" name="d">هاتف وحاسوب</label>
+        </div>
+      </fieldset>
+
+      <fieldset class="q"><legend>5. كيف هو الإنترنت عندك عادةً؟</legend>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="n">جيد ومستقر</label>
+          <label class="opt on"><input type="radio" name="n" checked="">يتقطع أحياناً</label>
+          <label class="opt"><input type="radio" name="n">ضعيف أغلب الوقت</label>
+        </div>
+        <p class="mu" style="font-size:13px">إذا اخترتِ «يتقطع» أو «ضعيف» سنفعّل تحميل الدروس للمشاهدة دون اتصال تلقائياً.</p>
+      </fieldset>
+
+      <fieldset class="q"><legend>6. هل تحتاجين رعاية أطفال أثناء الجلسات الحضورية؟</legend>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="c">نعم</label>
+          <label class="opt on"><input type="radio" name="c" checked="">لا</label>
+        </div>
+      </fieldset>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <a href="#" class="btn bo">→ السابق</a>
+      <a href="#" class="btn bt" style="min-width:200px">التالي: مهاراتك ←</a>
+    </div>
+  </div>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:12px">
+<p class="cap">الجوال · 360 · الخطوة 3 من 4</p>
+<div class="fm" style="height:780px;display:flex;flex-direction:column">
+  <header style="background:#fff;border-bottom:1px solid #D5E0DB;padding:10px 16px;display:flex;flex-direction:column;gap:8px">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <span style="font-weight:700;color:#0B4F4A;font-size:14px">3 من 4 · مهاراتك</span>
+      <span class="saved"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>محفوظ</span>
+    </div>
+    <div class="steps" aria-hidden="true"><i class="d"></i><i class="d"></i><i class="c"></i><i></i></div>
+  </header>
+  <div style="padding:20px 16px;display:flex;flex-direction:column;gap:22px;flex:1">
+    <h1 style="font-size:21px">ماذا تجيدين اليوم؟</h1>
+    <fieldset class="q"><legend style="font-size:15px">1. أي هذه الأعمال قمتِ به من قبل، ولو للعائلة؟</legend>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <label class="opt on"><input type="checkbox" checked="">خياطة أو تعديل ملابس</label>
+        <label class="opt"><input type="checkbox">طبخ للبيع أو للمناسبات</label>
+        <label class="opt on"><input type="checkbox" checked="">تصميم منشورات على الهاتف</label>
+        <label class="opt"><input type="checkbox">حسابات أو دفاتر محل</label>
+      </div>
+    </fieldset>
+    <fieldset class="q"><legend style="font-size:15px">2. هل سبق أن تقاضيتِ أجراً عن عمل؟</legend>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="p">نعم بانتظام</label>
+        <label class="opt on"><input type="radio" name="p" checked="">مرات قليلة</label>
+        <label class="opt"><input type="radio" name="p">لا</label>
+      </div>
+    </fieldset>
+    <p class="mu" style="font-size:13px">السؤال 2 من 5 في هذه الخطوة</p>
+  </div>
+  <div style="background:#fff;border-top:1px solid #D5E0DB;padding:12px 16px;display:flex;gap:8px">
+    <a href="#" class="btn bo" aria-label="السابق" style="width:52px;padding:0">→</a>
+    <a href="#" class="btn bt" style="flex:1">التالي ←</a>
+  </div>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:12px">
+<p class="cap">الجوال · 360 · النهاية: المسار الموصى به</p>
+<div class="fm" style="height:780px;display:flex;flex-direction:column">
+  <header style="background:#fff;border-bottom:1px solid #D5E0DB;padding:10px 16px;display:flex;flex-direction:column;gap:8px">
+    <span style="font-weight:700;color:#0B4F4A;font-size:14px">اكتمل التقييم</span>
+    <div class="steps" aria-hidden="true"><i class="d"></i><i class="d"></i><i class="d"></i><i class="d"></i></div>
+  </header>
+  <div style="padding:20px 16px;display:flex;flex-direction:column;gap:16px;flex:1">
+    <dc-import name="Spine" current="2" variant="compact" hint-size="100%,64px"></dc-import>
+    <p class="mu" style="font-size:14px">أنهيتِ مرحلة الاكتشاف. المسار الأقرب لمهاراتك ووقتك:</p>
+    <div class="card" style="padding:18px;display:flex;flex-direction:column;gap:10px;border:2px solid #0B4F4A">
+      <span class="tag ok" style="align-self:flex-start">تطابق مرتفع</span>
+      <h2 style="font-size:22px;color:#0B4F4A">التصميم الجرافيكي</h2>
+      <ul style="margin:0;padding-inline-start:18px;font-size:14px;display:flex;flex-direction:column;gap:2px">
+        <li>سبق أن صممتِ منشورات على الهاتف</li>
+        <li>جلسات صباحية تناسب وقتك (6 ساعات)</li>
+        <li>الدروس قابلة للتحميل لضعف الإنترنت</li>
+      </ul>
+      <div style="display:flex;justify-content:space-between;font-size:14px;border-top:1px solid #E1E9E5;padding-top:10px"><span class="mu">أقرب دفعة</span><span style="font-weight:700">[1 تشرين الثاني]</span></div>
+    </div>
+    <a href="#" style="font-weight:600;font-size:14px">بديل مناسب أيضاً: الخياطة والتفصيل ←</a>
+  </div>
+  <div style="background:#fff;border-top:1px solid #D5E0DB;padding:12px 16px;display:flex;flex-direction:column;gap:6px">
+    <a href="#" class="btn bg" style="min-height:52px">احجزي مقعدك في المسار</a>
+    <p class="mu" style="font-size:12px;text-align:center">ستصلك رسالة نصية بموعد الجلسة الأولى</p>
+  </div>
+</div>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":2240,"height":1300}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
