@@ -16,9 +16,11 @@ Read `JADWA360_BUILD_PLAN.md` for scope and phasing. These rules take precedence
 - Build the AI layer last (phase 5), once the `FeasibilityOutput` shape is stable.
 
 ## 3. Data & caching
+- The UI talks to data only through `ProjectStore` (`lib/projects/store.ts`). Current implementation: `LocalProjectStore` (browser localStorage, single local workspace, no accounts). The Supabase implementation must satisfy the same interface; `supabase/migrations/` holds the prepared schema with RLS (not yet applied anywhere).
+- Demo records carry `isDemo: true` and must be labelled «تجريبي» everywhere they appear. Never present demo numbers as real data.
 - Soft multi-tenancy: every project-scoped table carries `user_id` (directly or via `projects`), and every query filters on it (Supabase RLS).
 - `project_results` is a cache of `FeasibilityOutput`. Any write to `project_inputs` MUST invalidate or recompute it in the same operation. Stale results are a correctness bug.
 
 ## 4. Process
 - Ask before deciding anything the plan leaves open (scenario multipliers, default risk lists, feasibility-score formula, market-growth field, tax handling).
-- Run `npm run typecheck && npm test` before every commit.
+- Run `npm run typecheck && npm test` before every commit. For UI changes also run `npm run build` and the e2e smoke test (see README).

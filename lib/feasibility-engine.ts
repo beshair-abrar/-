@@ -52,6 +52,13 @@ export interface YearResult {
   profit: number;
   /** Net cash flow for the year, including terminal values in the final year (A9). */
   cashFlow: number;
+  /** variable + fixed + interest (all costs charged to the income statement). */
+  totalCost: number;
+  /** Cash operating costs: variable + fixed excluding depreciation/amortization (A15). */
+  opex: number;
+  /** Break-even point for the year (A16); null when contribution margin <= 0. */
+  breakEvenRevenue: number | null;
+  breakEvenCapacityPct: number | null;
 }
 
 export type TableCell = string | number;
@@ -66,6 +73,12 @@ export interface FeasibilityTable {
 export interface FeasibilityOutput {
   totalInvestment: number;
   equity: number;
+  /** Capital expenditure: fixed assets + establishment cost (A15). */
+  capex: number;
+  workingCapital: number;
+  contingency: number;
+  /** Revenue at 100% capacity. */
+  revenueAt100: number;
   yearly: YearResult[];
   npv: [number, number];
   /** Percent, or null when cash flows have no sign change / no root found. */
@@ -73,6 +86,8 @@ export interface FeasibilityOutput {
   payback: { label: string; years: number | null };
   /** Accounting rate of return, percent (A10). */
   arr: number;
+  /** Return on investment over project life, percent (A14). */
+  roi: number;
   undiscountedPI: number;
   tables: FeasibilityTable[];
   /** Full cash-flow vector, index 0 = initial outflow. */
@@ -82,7 +97,7 @@ export interface FeasibilityOutput {
 
 export class FeasibilityInputError extends Error {
   constructor(public readonly issues: string[]) {
-    super(`Invalid feasibility input: ${issues.join("; ")}`);
+    super(`مدخلات غير صالحة: ${issues.join("؛ ")}`);
     this.name = "FeasibilityInputError";
   }
 }
@@ -99,28 +114,28 @@ export function validateInput(input: FeasibilityInput): string[] {
     if (!cond) issues.push(msg);
   };
 
-  chk(Number.isInteger(input.projectLife) && input.projectLife >= 1 && input.projectLife <= 50, "projectLife must be an integer in 1..50");
-  chk(isNonNeg(input.workingCapitalMonths) && input.workingCapitalMonths <= 24, "workingCapitalMonths must be in 0..24");
-  chk(input.revenueLines.length > 0, "at least one revenue line is required");
-  input.revenueLines.forEach((r, i) => chk(isNonNeg(r.qtyAt100) && isNonNeg(r.unitPrice), `revenueLines[${i}] qty/price must be >= 0`));
-  chk(input.capacityRampByYear.length > 0, "capacityRampByYear must not be empty");
-  input.capacityRampByYear.forEach((c, i) => chk(isNonNeg(c) && c <= 100, `capacityRampByYear[${i}] must be in 0..100`));
+  chk(Number.isInteger(input.projectLife) && input.projectLife >= 1 && input.projectLife <= 50, "عمر المشروع يجب أن يكون عددًا صحيحًا بين 1 و50 سنة");
+  chk(isNonNeg(input.workingCapitalMonths) && input.workingCapitalMonths <= 24, "أشهر رأس المال العامل يجب أن تكون بين 0 و24");
+  chk(input.revenueLines.length > 0, "أضف بند إيراد واحدًا على الأقل");
+  input.revenueLines.forEach((r, i) => chk(isNonNeg(r.qtyAt100) && isNonNeg(r.unitPrice), `بند الإيراد ${i + 1}: الكمية والسعر يجب ألا تكون سالبة`));
+  chk(input.capacityRampByYear.length > 0, "حدد نسبة الطاقة التشغيلية لسنة واحدة على الأقل");
+  input.capacityRampByYear.forEach((c, i) => chk(isNonNeg(c) && c <= 100, `نسبة الطاقة في السنة ${i + 1} يجب أن تكون بين 0 و100`));
   input.fixedAssets.forEach((a, i) =>
-    chk(isNonNeg(a.cost) && isNonNeg(a.depRate) && a.depRate <= 100 && isNonNeg(a.insRate) && isNonNeg(a.maintRate), `fixedAssets[${i}] has invalid cost/rates`),
+    chk(isNonNeg(a.cost) && isNonNeg(a.depRate) && a.depRate <= 100 && isNonNeg(a.insRate) && isNonNeg(a.maintRate), `الأصل ${i + 1}: الكلفة أو النسب غير صحيحة`),
   );
-  chk(isNonNeg(input.establishmentCost), "establishmentCost must be >= 0");
-  chk(input.establishmentCost === 0 || (Number.isInteger(input.establishmentYears) && input.establishmentYears >= 1), "establishmentYears must be a positive integer when establishmentCost > 0");
-  [...input.indirectWages, ...input.directWages].forEach((w, i) => chk(isNonNeg(w.count) && isNonNeg(w.monthlySalary), `wage line ${i} has invalid count/salary`));
-  chk(isNonNeg(input.allowancePct), "allowancePct must be >= 0");
-  chk(isNonNeg(input.marketingMonthly) && isNonNeg(input.generalAdminMonthly), "marketing/G&A must be >= 0");
-  input.otherFixedAnnual.forEach((o, i) => chk(isNonNeg(o.annual), `otherFixedAnnual[${i}] must be >= 0`));
-  input.rawMaterials.forEach((m, i) => chk(isNonNeg(m.annualCost), `rawMaterials[${i}] must be >= 0`));
-  chk(isNonNeg(input.sparePartsAnnual) && isNonNeg(input.miscVariableAnnual), "spare parts / misc variable must be >= 0");
+  chk(isNonNeg(input.establishmentCost), "مصاريف التأسيس يجب ألا تكون سالبة");
+  chk(input.establishmentCost === 0 || (Number.isInteger(input.establishmentYears) && input.establishmentYears >= 1), "سنوات إطفاء التأسيس يجب أن تكون عددًا صحيحًا موجبًا");
+  [...input.indirectWages, ...input.directWages].forEach((w, i) => chk(isNonNeg(w.count) && isNonNeg(w.monthlySalary), `بند الأجور ${i + 1}: العدد أو الراتب غير صحيح`));
+  chk(isNonNeg(input.allowancePct), "نسبة المخصصات يجب ألا تكون سالبة");
+  chk(isNonNeg(input.marketingMonthly) && isNonNeg(input.generalAdminMonthly), "مصاريف التسويق والإدارة يجب ألا تكون سالبة");
+  input.otherFixedAnnual.forEach((o, i) => chk(isNonNeg(o.annual), `التكلفة الثابتة الأخرى ${i + 1} يجب ألا تكون سالبة`));
+  input.rawMaterials.forEach((m, i) => chk(isNonNeg(m.annualCost), `المادة الخام ${i + 1} يجب ألا تكون سالبة`));
+  chk(isNonNeg(input.sparePartsAnnual) && isNonNeg(input.miscVariableAnnual), "قطع الغيار والمصاريف المتغيرة الأخرى يجب ألا تكون سالبة");
   const { loan } = input;
-  chk(isNonNeg(loan.amount) && isNonNeg(loan.ratePct), "loan amount/rate must be >= 0");
-  chk(loan.amount === 0 || (Number.isInteger(loan.graceYears) && loan.graceYears >= 0 && Number.isInteger(loan.repayYears) && loan.repayYears >= 1), "loan grace must be an integer >= 0 and repayYears an integer >= 1");
-  chk(isNonNeg(input.contingencyPct), "contingencyPct must be >= 0");
-  chk(input.discountRates.length === 2 && input.discountRates.every((r) => Number.isFinite(r) && r > -100), "discountRates must be two rates > -100");
+  chk(isNonNeg(loan.amount) && isNonNeg(loan.ratePct), "مبلغ القرض وسعر الفائدة يجب ألا تكون سالبة");
+  chk(loan.amount === 0 || (Number.isInteger(loan.graceYears) && loan.graceYears >= 0 && Number.isInteger(loan.repayYears) && loan.repayYears >= 1), "فترة السماح عدد صحيح ≥ 0 وسنوات السداد عدد صحيح ≥ 1");
+  chk(isNonNeg(input.contingencyPct), "نسبة احتياطي الطوارئ يجب ألا تكون سالبة");
+  chk(input.discountRates.length === 2 && input.discountRates.every((r) => Number.isFinite(r) && r > -100), "حدد معدلي خصم صحيحين");
   return issues;
 }
 
@@ -225,8 +240,8 @@ export function computeFeasibility(input: FeasibilityInput): FeasibilityOutput {
 
   // A1: ramp shorter than project life → last value carried forward.
   const ramp = years.map((y) => input.capacityRampByYear[Math.min(y - 1, input.capacityRampByYear.length - 1)]);
-  if (input.capacityRampByYear.length < N) warnings.push("capacityRampByYear shorter than projectLife; last value carried forward");
-  if (input.capacityRampByYear.length > N) warnings.push("capacityRampByYear longer than projectLife; extra years ignored");
+  if (input.capacityRampByYear.length < N) warnings.push("جدول الطاقة التشغيلية أقصر من عمر المشروع؛ استُكملت السنوات المتبقية بآخر نسبة");
+  if (input.capacityRampByYear.length > N) warnings.push("جدول الطاقة التشغيلية أطول من عمر المشروع؛ أُهملت السنوات الزائدة");
 
   // 1) Fixed assets → depreciation (A2: straight-line on cost, capped at cost).
   const depByAsset = input.fixedAssets.map((a) => {
@@ -249,7 +264,7 @@ export function computeFeasibility(input: FeasibilityInput): FeasibilityOutput {
   const amortization = years.map((y) =>
     input.establishmentCost > 0 && y <= input.establishmentYears ? input.establishmentCost / input.establishmentYears : 0,
   );
-  if (input.establishmentCost > 0 && input.establishmentYears > N) warnings.push("establishmentYears exceeds projectLife; part of establishment cost is never amortized");
+  if (input.establishmentCost > 0 && input.establishmentYears > N) warnings.push("سنوات إطفاء التأسيس تتجاوز عمر المشروع؛ جزء من مصاريف التأسيس لن يُطفأ");
 
   // 4) Operating fixed costs (A4: wages + allowance %).
   const allowanceFactor = 1 + input.allowancePct / 100;
@@ -275,7 +290,7 @@ export function computeFeasibility(input: FeasibilityInput): FeasibilityOutput {
   const totalInvestment = investmentBase + contingency;
 
   // 8) Financing structure.
-  if (input.loan.amount > totalInvestment) throw new FeasibilityInputError(["loan amount exceeds total investment"]);
+  if (input.loan.amount > totalInvestment) throw new FeasibilityInputError(["مبلغ القرض يتجاوز إجمالي الكلفة الاستثمارية"]);
   const equity = totalInvestment - input.loan.amount;
 
   // 9) Loan schedule (A7: grace = interest-only, then equal principal instalments).
@@ -290,7 +305,7 @@ export function computeFeasibility(input: FeasibilityInput): FeasibilityOutput {
     balance = opening - principal;
     loanRows.push({ year: y, opening, interest, principal, closing: balance });
   }
-  if (L > 0 && balance > 1e-6) warnings.push("loan is not fully repaid within projectLife (graceYears + repayYears > projectLife)");
+  if (L > 0 && balance > 1e-6) warnings.push("القرض لا يُسدَّد بالكامل خلال عمر المشروع (فترة السماح + سنوات السداد أكبر من عمر المشروع)");
   const interest = loanRows.map((r) => r.interest);
 
   // 10) Revenue by capacity.
@@ -303,6 +318,9 @@ export function computeFeasibility(input: FeasibilityInput): FeasibilityOutput {
     const grossMargin = revenue[i] - variableCost[i];
     const profit = grossMargin - fixedCost[i] - interest[i];
     const cashFlow = profit + depreciation[i] + amortization[i] + (y === N ? terminalValue : 0);
+    // A16: break-even revenue = (fixed + interest) / contribution-margin ratio.
+    const cmRatio = revenue[i] > 0 ? grossMargin / revenue[i] : 0;
+    const breakEvenRevenue = cmRatio > 0 ? (fixedCost[i] + interest[i]) / cmRatio : null;
     return {
       year: y,
       capacityPct: ramp[i],
@@ -313,6 +331,10 @@ export function computeFeasibility(input: FeasibilityInput): FeasibilityOutput {
       loanBurden: interest[i],
       profit,
       cashFlow,
+      totalCost: variableCost[i] + fixedCost[i] + interest[i],
+      opex: variableCost[i] + cashFixedCost,
+      breakEvenRevenue,
+      breakEvenCapacityPct: breakEvenRevenue !== null && revenueAt100 > 0 ? (breakEvenRevenue / revenueAt100) * 100 : null,
     };
   });
   const cashFlows = [-totalInvestment, ...yearly.map((r) => r.cashFlow)];
@@ -323,6 +345,7 @@ export function computeFeasibility(input: FeasibilityInput): FeasibilityOutput {
   const pb = paybackYears(cashFlows);
   const avgProfit = sum(yearly.map((r) => r.profit)) / N;
   const arr = totalInvestment > 0 ? (avgProfit / totalInvestment) * 100 : 0; // A10
+  const roi = totalInvestment > 0 ? (sum(yearly.map((r) => r.profit)) / totalInvestment) * 100 : 0; // A14
   const undiscountedPI = totalInvestment > 0 ? sum(cashFlows.slice(1)) / totalInvestment : 0;
 
   // 14) Detail tables for display/export.
@@ -442,6 +465,8 @@ export function computeFeasibility(input: FeasibilityInput): FeasibilityOutput {
         ["التكاليف الثابتة", ...yearly.map((r) => round2(r.fixedCost))],
         ["فوائد القرض", ...yearly.map((r) => round2(r.loanBurden))],
         ["صافي الربح", ...yearly.map((r) => round2(r.profit))],
+        ["إيراد التعادل", ...yearly.map((r) => (r.breakEvenRevenue === null ? "—" : round2(r.breakEvenRevenue)))],
+        ["طاقة التعادل %", ...yearly.map((r) => (r.breakEvenCapacityPct === null ? "—" : round2(r.breakEvenCapacityPct)))],
       ],
     },
     {
@@ -466,6 +491,7 @@ export function computeFeasibility(input: FeasibilityInput): FeasibilityOutput {
         ["معدل العائد الداخلي %", irrPct === null ? "غير متاح" : round2(irrPct)],
         ["فترة الاسترداد", paybackLabel(pb)],
         ["معدل العائد المحاسبي %", round2(arr)],
+        ["العائد على الاستثمار (ROI) %", round2(roi)],
         ["دليل الربحية غير المخصوم", round2(undiscountedPI)],
       ],
     },
@@ -474,11 +500,16 @@ export function computeFeasibility(input: FeasibilityInput): FeasibilityOutput {
   return {
     totalInvestment,
     equity,
+    capex: totalFixedAssets + input.establishmentCost,
+    workingCapital,
+    contingency,
+    revenueAt100,
     yearly,
     npv: npvPair,
     irr: irrPct,
     payback: { label: paybackLabel(pb), years: pb },
     arr,
+    roi,
     undiscountedPI,
     tables,
     cashFlows,

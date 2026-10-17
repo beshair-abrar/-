@@ -1,42 +1,13 @@
 import { describe, expect, it } from "vitest";
 import {
   computeFeasibility,
-  FeasibilityInput,
   FeasibilityInputError,
   irr,
   npv,
   paybackLabel,
   paybackYears,
 } from "./feasibility-engine";
-
-/**
- * Hand-computed fixture. Every expected value below is derived by hand in
- * comments so the test documents the methodology, not just the code.
- */
-export const fixture: FeasibilityInput = {
-  projectLife: 5,
-  workingCapitalMonths: 3,
-  revenueLines: [{ name: "منتج أ", qtyAt100: 10_000, unitPrice: 50 }], // 500,000 @100%
-  capacityRampByYear: [60, 80, 100], // → 60,80,100,100,100 (A1)
-  fixedAssets: [
-    { name: "مبنى", cost: 200_000, depRate: 5, insRate: 0.5, maintRate: 1 }, // dep 10k, ins 1k, maint 2k
-    { name: "آلات", cost: 100_000, depRate: 20, insRate: 1, maintRate: 2 }, // dep 20k, ins 1k, maint 2k
-  ],
-  establishmentCost: 20_000,
-  establishmentYears: 5, // 4k/yr
-  indirectWages: [{ title: "مدير", count: 1, monthlySalary: 2_000 }], // 24k ×1.1 = 26.4k
-  directWages: [{ title: "عامل", count: 3, monthlySalary: 1_000 }], // 36k ×1.1 = 39.6k
-  allowancePct: 10,
-  marketingMonthly: 1_000, // 12k
-  generalAdminMonthly: 500, // 6k
-  otherFixedAnnual: [{ name: "إيجار", annual: 12_000 }],
-  rawMaterials: [{ name: "مادة خام", annualCost: 150_000 }],
-  sparePartsAnnual: 5_000,
-  miscVariableAnnual: 5_400, // variable @100% = 150k+39.6k+5k+5.4k = 200k
-  loan: { amount: 200_000, ratePct: 8, graceYears: 1, repayYears: 4 },
-  contingencyPct: 5,
-  discountRates: [10, 15],
-};
+import { fixture } from "./fixtures";
 
 describe("computeFeasibility — hand-computed fixture", () => {
   const out = computeFeasibility(fixture);
@@ -87,10 +58,31 @@ describe("computeFeasibility — hand-computed fixture", () => {
     expect(out.irr!).toBeGreaterThan(15);
   });
 
+  it("capex, opex, ROI and break-even", () => {
+    expect(out.capex).toBe(320_000); // assets 300k + establishment 20k
+    expect(out.workingCapital).toBeCloseTo(65_600, 6);
+    expect(out.contingency).toBeCloseTo(19_280, 6);
+    expect(out.revenueAt100).toBe(500_000);
+    expect(out.roi).toBeCloseTo((782_000 / 404_880) * 100, 9);
+    // opex = variable + cash fixed 62.4k
+    expect(out.yearly[0].opex).toBeCloseTo(182_400, 6);
+    expect(out.yearly[0].totalCost).toBeCloseTo(120_000 + 96_400 + 16_000, 6);
+    // CM ratio 0.6 every year; y1 BE = (96.4k + 16k)/0.6
+    expect(out.yearly[0].breakEvenRevenue).toBeCloseTo(112_400 / 0.6, 6);
+    expect(out.yearly[0].breakEvenCapacityPct).toBeCloseTo((112_400 / 0.6 / 500_000) * 100, 6);
+    expect(out.yearly[2].breakEvenRevenue).toBeCloseTo(108_400 / 0.6, 6);
+  });
+
+  it("break-even is null when contribution margin is not positive", () => {
+    const o = computeFeasibility({ ...fixture, rawMaterials: [{ name: "x", annualCost: 600_000 }] });
+    expect(o.yearly[0].breakEvenRevenue).toBeNull();
+    expect(o.yearly[0].breakEvenCapacityPct).toBeNull();
+  });
+
   it("loan schedule is fully repaid; only the ramp carry-forward warning", () => {
     const loan = out.tables.find((t) => t.id === "loanSchedule")!;
     expect(loan.rows.at(-1)![4]).toBe(0);
-    expect(out.warnings).toEqual(["capacityRampByYear shorter than projectLife; last value carried forward"]);
+    expect(out.warnings).toEqual(["جدول الطاقة التشغيلية أقصر من عمر المشروع؛ استُكملت السنوات المتبقية بآخر نسبة"]);
   });
 
   it("emits all detail tables", () => {
@@ -156,12 +148,12 @@ describe("validation and warnings", () => {
   });
 
   it("rejects a loan larger than total investment", () => {
-    expect(() => computeFeasibility({ ...fixture, loan: { ...fixture.loan, amount: 1e9 } })).toThrow(/exceeds total investment/);
+    expect(() => computeFeasibility({ ...fixture, loan: { ...fixture.loan, amount: 1e9 } })).toThrow(/يتجاوز إجمالي الكلفة الاستثمارية/);
   });
 
   it("warns when the loan outlives the project", () => {
     const out = computeFeasibility({ ...fixture, loan: { ...fixture.loan, graceYears: 3, repayYears: 5 } });
-    expect(out.warnings.some((w) => w.includes("not fully repaid"))).toBe(true);
+    expect(out.warnings.some((w) => w.includes("لا يُسدَّد بالكامل"))).toBe(true);
   });
 
   it("works with no loan and no establishment cost", () => {
